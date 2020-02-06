@@ -32,7 +32,7 @@
         <tr>
             <th>
                 <label class="select-all-label">
-                    <input type="checkbox" title="Выбрать"/>
+                    <input type="checkbox" title="Выбрать" v-on:change="checkedAllContacts" v-model="checkAll"/>
                 </label>
             </th>
             <th>№</th>
@@ -47,7 +47,7 @@
             <template v-if="row.shown">
                 <td>
                     <label class="select-me-label">
-                        <input type="checkbox" class="select-me"/>
+                        <input type="checkbox" class="select-me" v-model="row.checked" v-on:change="isAllChecked()"/>
                     </label>
                 </td>
                 <td v-text="row.number"></td>
@@ -55,14 +55,14 @@
                 <td v-text="row.firstName"></td>
                 <td v-text="row.phone"></td>
                 <td>
-                    <button class="btn btn-primary" type="button">Удалить</button>
+                    <button class="btn btn-primary" type="button" v-on:click="deleteContact(row)">Удалить</button>
                 </td>
             </template>
         </tr>
         </tbody>
     </table>
 
-    <button type="button" class="btn btn-primary">Удалить выбранные</button>
+    <button type="button" class="btn btn-primary" v-on:click="deleteCheckedContacts()">Удалить выбранные</button>
 
     <br>
 

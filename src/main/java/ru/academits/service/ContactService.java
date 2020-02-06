@@ -62,6 +62,10 @@ public class ContactService {
         return contactValidation;
     }
 
+    public void delContact(int[] iD){
+        contactDao.del(iD);
+    }
+
     public List<Contact> getAllContacts() {
         return contactDao.getAllContacts();
     }

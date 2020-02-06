@@ -30,6 +30,13 @@ public class ContactDao {
     }
 
     public void add(Contact contact) {
+        contact.setId(getNewId());
         contactList.add(contact);
+    }
+
+    public void del(int[] iDsToDelete) {
+        for (int iD : iDsToDelete) {
+            contactList.removeIf(contact -> iD == contact.getId());
+        }
     }
 }

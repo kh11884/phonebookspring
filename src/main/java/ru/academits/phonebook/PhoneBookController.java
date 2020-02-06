@@ -4,10 +4,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.academits.model.Contact;
 import ru.academits.model.ContactValidation;
+import ru.academits.model.IDsToDelete;
 import ru.academits.service.ContactService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -31,7 +33,15 @@ public class PhoneBookController {
     @RequestMapping(value = "addContact", method = RequestMethod.POST)
     @ResponseBody
     public ContactValidation addContact(@RequestBody Contact contact) {
+        logger.info("called method addContact");
         return contactService.addContact(contact);
+    }
+
+    @RequestMapping(value = "delContact", method = RequestMethod.POST)
+    @ResponseBody
+    public void delContact(@RequestBody IDsToDelete iDs) {
+        logger.info("called method delContact");
+        contactService.delContact(iDs.getiDs());
     }
 }
 
