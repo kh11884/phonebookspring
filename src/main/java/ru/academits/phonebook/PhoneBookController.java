@@ -33,14 +33,14 @@ public class PhoneBookController {
     @RequestMapping(value = "addContact", method = RequestMethod.POST)
     @ResponseBody
     public ContactValidation addContact(@RequestBody Contact contact) {
-        logger.info("called method addContact");
+        logger.info("called method addContact with parameters: " + contact);
         return contactService.addContact(contact);
     }
 
     @RequestMapping(value = "delContact", method = RequestMethod.POST)
     @ResponseBody
     public void delContact(@RequestBody IDsToDelete iDs) {
-        logger.info("called method delContact");
+        logger.info("called method delContact with parameters: " + iDs);
         contactService.delContact(iDs.getiDs());
     }
 }
