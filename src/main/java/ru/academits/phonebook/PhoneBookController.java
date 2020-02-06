@@ -8,8 +8,6 @@ import ru.academits.model.IDsToDelete;
 import ru.academits.service.ContactService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -42,6 +40,10 @@ public class PhoneBookController {
     public void delContact(@RequestBody IDsToDelete iDs) {
         logger.info("called method delContact with parameters: " + iDs);
         contactService.delContact(iDs.getiDs());
+    }
+
+    public int[] getContactsIDs() {
+        return contactService.getAllContacts().stream().mapToInt(Contact::getId).toArray();
     }
 }
 
