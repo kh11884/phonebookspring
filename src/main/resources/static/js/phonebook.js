@@ -73,25 +73,6 @@ new Vue({
             self.phone = "";
             self.validation = false;
         },
-        deleteContact: function (contact) {
-            var self = this;
-            var iDToDelete = new IDsToDelete([contact.id]);
-
-            $.ajax({
-                type: "POST",
-                url: "/phoneBook/rpc/api/v1/delContact",
-                contentType: "application/json",
-                data: JSON.stringify(iDToDelete)
-            }).done(function () {
-                self.serverValidation = true;
-            }).fail(function (ajaxRequest) {
-                var contactValidation = JSON.parse(ajaxRequest.responseText);
-                self.serverError = contactValidation.error;
-                self.serverValidation = false;
-            }).always(function () {
-                self.loadData();
-            });
-        },
         loadData: function () {
             var self = this;
 
@@ -105,32 +86,6 @@ new Vue({
                 contact.checked = self.checkAll;
             });
         },
-        deleteCheckedContacts: function () {
-            this.checkAll = false;
-
-            var iDs = this.rows.filter(function (contact) {
-                return contact.checked;
-            }).map(function (contact) {
-                return contact.id;
-            });
-            var iDsToDelete = new IDsToDelete(iDs);
-
-            var self = this;
-            $.ajax({
-                type: "POST",
-                url: "/phoneBook/rpc/api/v1/delContact",
-                contentType: "application/json",
-                data: JSON.stringify(iDsToDelete)
-            }).done(function () {
-                self.serverValidation = true;
-            }).fail(function (ajaxRequest) {
-                var contactValidation = JSON.parse(ajaxRequest.responseText);
-                self.serverError = contactValidation.error;
-                self.serverValidation = false;
-            }).always(function () {
-                self.loadData();
-            });
-        },
         isAllChecked: function () {
             if (this.rows.length === 0) {
                 this.checkAll = false;
@@ -140,10 +95,25 @@ new Vue({
                 });
             }
         },
+        deleteContact: function (contact) {
+            this.checkAll = false;
+            this.sendDeleteRequest([contact.id]);
+        },
+        deleteCheckedContacts: function () {
+            this.checkAll = false;
+
+            var iDs = this.rows.filter(function (contact) {
+                return contact.checked;
+            }).map(function (contact) {
+                return contact.id;
+            });
+
+            this.sendDeleteRequest(iDs);
+        },
         sendDeleteRequest: function (iDsArray) {
             var iDsToDelete = new IDsToDelete(iDsArray);
-
             var self = this;
+
             $.ajax({
                 type: "POST",
                 url: "/phoneBook/rpc/api/v1/delContact",
