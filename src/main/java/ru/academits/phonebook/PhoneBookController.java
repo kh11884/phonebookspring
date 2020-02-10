@@ -43,7 +43,7 @@ public class PhoneBookController {
     }
 
     public int[] getContactsIDs() {
-        return contactService.getAllContacts().stream().mapToInt(Contact::getId).toArray();
+        return contactService.getContactsIDs();
     }
 }
 

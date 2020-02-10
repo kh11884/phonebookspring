@@ -16,17 +16,17 @@ public class DeleteRandomContact {
         this.phoneBookController = phoneBookController;
     }
 
-    @Scheduled(fixedRate = 10000)
-    public void deleteRandomContact(){
-        int[] contactsIDs = phoneBookController.getContactsIDs();
-
-        if(contactsIDs.length > 0) {
-            int randomIndex = (int) Math.floor(Math.random() * contactsIDs.length);
-            IDsToDelete iDsToDelete = new IDsToDelete();
-            iDsToDelete.setiDs(new int[]{contactsIDs[randomIndex]});
-
-            phoneBookController.delContact(iDsToDelete);
-            logger.info("called SchedulerMethod deleteRandomContact with parameters: " + iDsToDelete);
-        }
-    }
+//    @Scheduled(fixedRate = 10000)
+//    public void deleteRandomContact(){
+//        int[] contactsIDs = phoneBookController.getContactsIDs();
+//
+//        if(contactsIDs.length > 0) {
+//            int randomIndex = (int) Math.floor(Math.random() * contactsIDs.length);
+//            IDsToDelete iDsToDelete = new IDsToDelete();
+//            iDsToDelete.setiDs(new int[]{contactsIDs[randomIndex]});
+//
+//            phoneBookController.delContact(iDsToDelete);
+//            logger.info("called SchedulerMethod deleteRandomContact with parameters: " + iDsToDelete);
+//        }
+//    }
 }

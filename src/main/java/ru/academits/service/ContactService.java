@@ -69,4 +69,8 @@ public class ContactService {
     public List<Contact> getAllContacts() {
         return contactDao.getAllContacts();
     }
+
+    public int[] getContactsIDs() {
+        return contactDao.getAllContacts().stream().mapToInt(Contact::getId).toArray();
+    }
 }
